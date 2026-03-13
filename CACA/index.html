@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="imagens/Logotipo.webp" type="image/webp">
     <title>Centro Académico Clínico dos Açores</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
 <body> 
     <header class="main-header">
@@ -19,6 +22,7 @@
             <a href="#investigacao" class="anav">Investigação</a>
             <a href="#parceiros" class="anav">Parceiros</a>
             <a href="#oportunidades" class="anav">Oportunidades</a>
+            <a href="#newsletter" class="anav">Newsletter</a>
             <a href="#localizacao" class="anav">Localização</a>
             <a href="#contactos" class="anav">Contactos</a>
         </nav>
@@ -29,14 +33,17 @@
         <div class="hero-content">
             <h2 class="hero-title">Bem-vindo ao Centro Académico Clínico dos Açores</h2>
             <p>O Centro Académico Clínico dos Açores é uma instituição dedicada à formação e desenvolvimento de profissionais de saúde na região dos Açores. Oferecemos uma variedade de cursos, workshops e eventos para promover a excelência na prática clínica e na pesquisa em saúde.</p>
+            
+            <p id="texto-oculto">A nossa missão é cruzar a fronteira entre a investigação laboratorial e o leito do doente, garantindo que as inovações científicas chegam rapidamente a quem mais precisa no arquipélago.</p>
+            <button id="btn-saber-mais">Saber Mais</button>
         </div>
     </section>
     
-    <section id="investigacao" class="section-title-container">
+    <section id="investigacao" class="section-title-container animar-entrada">
         <h2 class="section-title">Áreas de Investigação</h2>
     </section>
     
-    <section class="research-section">
+    <section class="research-section animar-entrada">
        <div class="research-card">
         <img src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=500&auto=format&fit=crop" alt="Coração e cardiologia" class="card-image">
         <h3>Doenças Cardiovasculares</h3>
@@ -59,7 +66,7 @@
        </div>
     </section>
     
-    <section class="partners-section" id="parceiros">
+    <section class="partners-section animar-entrada" id="parceiros">
         <div class="content-wrapper">
             <h2>Parceiros Institucionais</h2>
             <p>O nosso sucesso baseia-se numa rede sólida de colaborações estratégicas. Trabalhamos em estreita articulação com entidades de referência na região para garantir a excelência na translação do conhecimento científico para a prática clínica:</p>
@@ -71,7 +78,7 @@
         </div>
     </section>
 
-    <section class="opportunities-section" id="oportunidades">
+    <section class="opportunities-section animar-entrada" id="oportunidades">
         <div class="content-wrapper">
             <h2>Oportunidades e Carreira</h2>
             <p>Procuramos constantemente atrair jovens talentos e investigadores experientes para integrarem as nossas equipas multidisciplinares num ambiente de trabalho altamente dinâmico.</p>
@@ -84,15 +91,57 @@
             <p>Explore as nossas vagas abertas e venha contribuir para o avanço da ciência na Região Autónoma dos Açores.</p>
         </div>
     </section>  
+
+    <section id="estatisticas" class="section-title-container animar-entrada">
+        <h2 class="section-title">A Nossa Força Científica</h2>
+        <p class="subtitle-stats">Investigadores ativos por área de estudo.</p>
+        <div id="d3-container"></div>
+    </section>
+
+    <section id="newsletter" class="contact-location-section">
+        <div class="newsletter-container animar-entrada">
+            <h2>Subscrever Newsletter</h2>
+            
+            <form id="form-caca" novalidate>
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome">
+                    <small id="erro-nome" class="erro-msg">O nome é obrigatório.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email">
+                    <small id="erro-email" class="erro-msg">Introduza um e-mail válido.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="interesse">Área de Interesse</label>
+                    <select id="interesse">
+                        <option value="">Selecione...</option>
+                        <option value="cardiologia">Doenças Cardiovasculares</option>
+                        <option value="neurociencia">Neurociências</option>
+                        <option value="genetica">Genética</option>
+                    </select>
+                    <small id="erro-interesse" class="erro-msg">Selecione uma área de interesse.</small>
+                </div>
+
+                <button type="submit" class="btn-submit">Inscrever</button>
+                <div id="mensagem-sucesso">
+                    Inscrição concluída com sucesso!
+                </div>
+            </form>
+        </div>
+    </section>
     
-    <section class="contact-location-section">
+    <section class="contact-location-section animar-entrada">
         <div class="location-container" id="localizacao">
             <h2>Localização</h2>
             <p>
                 <strong>Sede:</strong> Edifício Central da Saúde, Rua da Ciência nº 42, 9500-123 Ponta Delgada, São Miguel, Açores.
             </p>
             <div class="map-wrapper">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49607.7291118357!2d-25.717192667822067!3d37.766792628938994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb432a76f236ba8b%3A0xf636a0fb44eb081b!2sPonta%20Delgada!5e0!3m2!1spt-PT!2spt!4v1700000000000!5m2!1spt-PT!2spt" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49607.7291118357!2d-25.717192667822067!3d37.766792628938994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb432a76f236ba8b%3A0xf636a0fb44eb081b!2sPonta%20Delgada!5e0!3m2!1spt-PT!2spt!4v1700000000000!5m2!1spt-PT!2spt" width="100%" height="300" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
 
@@ -109,5 +158,14 @@
     <footer class="main-footer">
         <p>© 2026 Centro Académico Clínico dos Açores. Todos os direitos reservados. Promovendo a ciência e a saúde na Região Autónoma dos Açores.</p>
     </footer>
+
+    <button id="btn-topo">/\</button>
+
+    <script src=".\Scripts\animações\animacao_gsap.js" defer></script>
+    <script src=".\Scripts\Botões\botao_Saber_mais.js" defer></script>
+    <script src=".\Scripts\animações\fade_in.js" defer></script>
+    <script src=".\Scripts\Botões\botao_voltar_topo.js" defer></script>
+    <script src=".\Scripts\animações\grafico.js" defer></script>
+    <script src=".\Scripts\formulario.js" defer></script>
 </body>
 </html>
