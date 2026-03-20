@@ -23,7 +23,7 @@ function formulario(evento) {
     // Este "código estranho" é a regra de ouro para emails
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Em vez de usarmos o includes, usamos o .test() para ver se o email passa na regra
+    // .test() para ver se o email passa na regra
     if (regexEmail.test(email) === false) {
         document.getElementById("erro-email").style.display = "block";
         temErros = true;
